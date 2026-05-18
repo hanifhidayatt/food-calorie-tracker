@@ -137,29 +137,29 @@ if uploaded_file is not None:
                 # RESULTS — Macro cards (custom HTML)
                 # -----------------------------------------------
                 st.markdown(f"""
-                    <div style="display:flex; gap:1rem; margin:1rem 0;">
-                        <div style="flex:1; background:#fff5f5; border-radius:16px; padding:1.25rem;">
-                            <p style="font-size:0.8rem; color:#888; margin:0; text-align:center;">🔥 Calories</p>
-                            <h2 style="font-size:1.75rem; margin:0.25rem 0; text-align:center; font-family:'Inter',sans-serif;">{data['calories']}</h2>
-                            <p style="font-size:0.75rem; color:#aaa; margin:0; text-align:center;">kcal</p>
-                        </div>
-                        <div style="flex:1; background:#f0f7ff; border-radius:16px; padding:1.25rem;">
-                            <p style="font-size:0.8rem; color:#888; margin:0; text-align:center;">💪 Protein</p>
-                            <h2 style="font-size:1.75rem; margin:0.25rem 0; text-align:center; font-family:'Inter',sans-serif;">{data['protein_g']}</h2>
-                            <p style="font-size:0.75rem; color:#aaa; margin:0; text-align:center;">grams</p>
-                        </div>
-                        <div style="flex:1; background:#fff8f0; border-radius:16px; padding:1.25rem;">
-                            <p style="font-size:0.8rem; color:#888; margin:0; text-align:center;">🍞 Carbs</p>
-                            <h2 style="font-size:1.75rem; margin:0.25rem 0; text-align:center; font-family:'Inter',sans-serif;">{data['carbs_g']}</h2>
-                            <p style="font-size:0.75rem; color:#aaa; margin:0; text-align:center;">grams</p>
-                        </div>
-                        <div style="flex:1; background:#f2fff5; border-radius:16px; padding:1.25rem;">
-                            <p style="font-size:0.8rem; color:#888; margin:0; text-align:center;">🥑 Fat</p>
-                            <h2 style="font-size:1.75rem; margin:0.25rem 0; text-align:center; font-family:'Inter',sans-serif;">{data['fat_g']}</h2>
-                            <p style="font-size:0.75rem; color:#aaa; margin:0; text-align:center;">grams</p>
-                        </div>
-                    </div>
-                """, unsafe_allow_html=True)
+    <div style="display:flex; gap:1rem; margin:1rem 0;">
+        <div style="flex:1; background:#fff5f5; border-radius:16px; padding:1.25rem;">
+            <p style="font-size:0.8rem; color:#888; margin:0; text-align:center;">🔥 Calories</p>
+           <p style="font-size:1.75rem; font-weight:700; margin:0.25rem 0; text-align:center; display:block; width:100%; font-family:'Inter',sans-serif;">{data['calories']}</p>
+            <p style="font-size:0.75rem; color:#aaa; margin:0; text-align:center;">kcal</p>
+        </div>
+        <div style="flex:1; background:#f0f7ff; border-radius:16px; padding:1.25rem;">
+            <p style="font-size:0.8rem; color:#888; margin:0; text-align:center;">💪 Protein</p>
+            <p style="font-size:1.75rem; font-weight:700; margin:0.25rem 0; text-align:center; display:block; width:100%; font-family:'Inter',sans-serif;">{data['protein_g']}</p>
+            <p style="font-size:0.75rem; color:#aaa; margin:0; text-align:center;">grams</p>
+        </div>
+        <div style="flex:1; background:#fff8f0; border-radius:16px; padding:1.25rem;">
+            <p style="font-size:0.8rem; color:#888; margin:0; text-align:center;">🍞 Carbs</p>
+            <p style="font-size:1.75rem; font-weight:700; margin:0.25rem 0; text-align:center; display:block; width:100%; font-family:'Inter',sans-serif;">{data['carbs_g']}</p>
+            <p style="font-size:0.75rem; color:#aaa; margin:0; text-align:center;">grams</p>
+        </div>
+        <div style="flex:1; background:#f2fff5; border-radius:16px; padding:1.25rem;">
+            <p style="font-size:0.8rem; color:#888; margin:0; text-align:center;">🥑 Fat</p>
+            <p style="font-size:1.75rem; font-weight:700; margin:0.25rem 0; text-align:center; display:block; width:100%; font-family:'Inter',sans-serif;">{data['fat_g']}</p>
+            <p style="font-size:0.75rem; color:#aaa; margin:0; text-align:center;">grams</p>
+        </div>
+    </div>
+""", unsafe_allow_html=True)
                 st.divider()
 
                 # -----------------------------------------------
