@@ -109,11 +109,14 @@ st.divider()
 # -----------------------------------------------
 # UI — File Upload
 # -----------------------------------------------
-uploaded_file = st.file_uploader(
-    "Upload a food photo",
-    type=["jpg", "jpeg", "png", "webp"],
-    help="Take a photo of your meal and upload it here"
-)
+option = st.radio("Choose input method", [
+                  "📁 Upload photo", "📷 Use camera"], horizontal=True)
+
+if option == "📁 Upload photo":
+    uploaded_file = st.file_uploader("Upload a food photo", type=[
+                                     "jpg", "jpeg", "png", "webp"])
+else:
+    uploaded_file = st.camera_input("Take a photo of your food")
 
 if uploaded_file is not None:
     image = Image.open(uploaded_file)
