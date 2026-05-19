@@ -3,6 +3,10 @@ import google.generativeai as genai
 import json
 from PIL import Image
 
+# Initialize session state to store today's meals
+if "meals" not in st.session_state:
+    st.session_state.meals = []
+
 # -----------------------------------------------
 # PAGE CONFIG — must be the first Streamlit call
 # -----------------------------------------------
@@ -132,6 +136,14 @@ if uploaded_file is not None:
                 # RESULTS — Food name & description
                 # -----------------------------------------------
                 st.subheader(f"🍴 {data['food_name']}")
+                # Add this meal to today's log
+                st.session_state.meals.append({
+                    "name": data["food_name"],
+                    "calories": data["calories"],
+                    "protein": data["protein_g"],
+                    "carbs": data["carbs_g"],
+                    "fat": data["fat_g"]
+                })
                 st.caption(data["description"])
                 st.caption(f"Estimated serving: {data['serving_size']}")
                 st.divider()
@@ -216,6 +228,60 @@ if uploaded_file is not None:
                 # RESULTS — Nutrition insight
                 # -----------------------------------------------
                 st.info(f"💡 **Nutrition Insight:** {data['insight']}")
+                # -----------------------------------------------
+                # DAILY MEAL LOG
+                # -----------------------------------------------
+                if st.session_state.meals:
+                    st.divider()
+                    st.subheader("📋 Today's Meal Log")
+
+                    # Calculate daily totals
+                    total_calories = sum(m["calories"]
+                                         for m in st.session_state.meals)
+                    total_protein = sum(m["protein"]
+                                        for m in st.session_state.meals)
+                    total_carbs = sum(m["carbs"]
+                                      for m in st.session_state.meals)
+                    total_fat = sum(m["fat"] for m in st.session_state.meals)
+
+                    # Show each meal
+                    for i, meal in enumerate(st.session_state.meals):
+                        st.markdown(
+                            f"**{i+1}. {meal['name']}** — {meal['calories']} kcal | {meal['protein']}g protein | {meal['carbs']}g carbs | {meal['fat']}g fat")
+
+                    st.divider()
+
+                    # Show daily totals
+                    st.markdown("### 🧮 Daily Total")
+                    st.markdown(f"""
+                        <div style="display:flex; gap:1rem; margin:1rem 0;">
+                            <div style="flex:1; background:#fff5f5; border-radius:16px; padding:1.25rem;">
+                                <p style="font-size:0.8rem; color:#888; margin:0; text-align:center;">🔥 Total Calories</p>
+                                <p style="font-size:1.75rem; font-weight:700; margin:0.25rem 0; text-align:center; font-family:'Inter',sans-serif;">{total_calories}</p>
+                                <p style="font-size:0.75rem; color:#aaa; margin:0; text-align:center;">kcal</p>
+                            </div>
+                            <div style="flex:1; background:#f0f7ff; border-radius:16px; padding:1.25rem;">
+                                <p style="font-size:0.8rem; color:#888; margin:0; text-align:center;">💪 Total Protein</p>
+                                <p style="font-size:1.75rem; font-weight:700; margin:0.25rem 0; text-align:center; font-family:'Inter',sans-serif;">{total_protein}</p>
+                                <p style="font-size:0.75rem; color:#aaa; margin:0; text-align:center;">grams</p>
+                            </div>
+                            <div style="flex:1; background:#fff8f0; border-radius:16px; padding:1.25rem;">
+                                <p style="font-size:0.8rem; color:#888; margin:0; text-align:center;">🍞 Total Carbs</p>
+                                <p style="font-size:1.75rem; font-weight:700; margin:0.25rem 0; text-align:center; font-family:'Inter',sans-serif;">{total_carbs}</p>
+                                <p style="font-size:0.75rem; color:#aaa; margin:0; text-align:center;">grams</p>
+                            </div>
+                            <div style="flex:1; background:#f2fff5; border-radius:16px; padding:1.25rem;">
+                                <p style="font-size:0.8rem; color:#888; margin:0; text-align:center;">🥑 Total Fat</p>
+                                <p style="font-size:1.75rem; font-weight:700; margin:0.25rem 0; text-align:center; font-family:'Inter',sans-serif;">{total_fat}</p>
+                                <p style="font-size:0.75rem; color:#aaa; margin:0; text-align:center;">grams</p>
+                            </div>
+                        </div>
+                    """, unsafe_allow_html=True)
+
+                    # Clear button
+                    if st.button("🗑️ Clear meal log"):
+                        st.session_state.meals = []
+                        st.rerun()
 
             except json.JSONDecodeError:
                 st.error(
